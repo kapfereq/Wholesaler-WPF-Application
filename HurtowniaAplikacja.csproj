@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\defaultPic.png" />
+    <None Remove="Images\MarketMate.png" />
+    <None Remove="Images\WholesaleFoods.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\MarketMate.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\defaultPic.png" />
+    <Resource Include="Images\WholesaleFoods.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UserAccounts\" />
+  </ItemGroup>
+
+</Project>

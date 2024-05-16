@@ -1,0 +1,86 @@
+﻿<Window x:Class="HurtowniaAplikacja.MainLoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HurtowniaAplikacja"
+        mc:Ignorable="d"
+        Title="Login"
+        Width="800" Height="550"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    
+    <Window.Resources>
+        <local:PercentageConverter x:Key="PercentageConverter" />
+
+        <DataTemplate x:Key="LoginTemplate">
+            <StackPanel>
+                <TextBlock Text="Login:" Margin="3"/>
+                <TextBox Text="{Binding LoginUsername, Mode=TwoWay}" Grid.Row="0" Margin="5" Name="UsernameLogin" TextChanged="UsernameLogin_OnTextChanged"/>
+                <TextBlock Text="Password:" Margin="3"/>
+                <PasswordBox Grid.Row="1" Margin="3" />
+
+                <Button Content="Login" Grid.Row="2" Margin="3" Click="MainLoginWindow_OnLoginButtonClick">
+                </Button>
+                <Button Width="300" BorderThickness="0" Content="Don't have an account? Register here!" Foreground="Blue" Margin="5" 
+                Click="changeTemplate" Background="Transparent">
+                </Button>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RegistrationTemplate">
+            <StackPanel>
+                <TextBlock Text="Login:" Grid.Row="3" Margin="3"/>
+                <TextBox Text="{Binding RegisterUsername,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="5"/>
+                <TextBlock Text="Password:" Grid.Row="3" Margin="3"/>
+                <PasswordBox  Grid.Row="1" Margin="3"/>
+                <Button Content="Register" Grid.Row="2" Margin="3" Click="MainLoginWindow_OnRegisterButtonClick"/>
+                <Button Width="300" BorderThickness="0" Content="Already have an account? Login here!" Foreground="Blue" Margin="5" 
+                Click="changeTemplate" Background="Transparent">
+                </Button>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Border CornerRadius="50" BorderThickness="2">
+        <Border.Background>
+            <ImageBrush ImageSource="/HurtowniaAplikacja;component/Images/WholesaleFoods.png"></ImageBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+                BorderThickness="5">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#bd3908" Offset="0.75"/>
+                    <GradientStop Color="#413423" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0" Opacity="0.85">
+                    <GradientStop Color="#ffffff" Offset="0"/>
+                    <GradientStop Color="#fac8a8" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Source="/HurtowniaAplikacja;component/Images/MarketMate.png" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Width="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}, Converter={StaticResource PercentageConverter}, ConverterParameter='40'}"/>
+
+                <ContentControl x:Name="MyContentControl" Grid.Row="1" Margin="20">
+                    <Grid>
+                        <ContentControl ContentTemplate="{StaticResource LoginTemplate}" Visibility="{Binding IsLoginMode, Mode=TwoWay}" />
+                    </Grid>
+                </ContentControl>
+            </Grid>
+            
+        </Border>
+    </Border>
+</Window>
