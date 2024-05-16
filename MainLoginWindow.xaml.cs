@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
+using System.Security;
 
 namespace HurtowniaAplikacja
 {
@@ -10,6 +11,7 @@ namespace HurtowniaAplikacja
     /// </summary>
     public partial class MainLoginWindow : Window, INotifyPropertyChanged
     {
+        private readonly AccountManager _accountManager = new AccountManager();
         private string CurrentTemplateName = "LoginTemplate";
 
         private string _loginUsername;
@@ -22,9 +24,7 @@ namespace HurtowniaAplikacja
                 OnPropertyChanged("LoginUsername"); // Notify about property change
             }
         }
-        string LoginPassword { get; set; }
-        string RegisterUsername { get; set; }
-        string RegisterPassword { get; set; }
+        public SecureString SecurePassword { private get; set; }
         public MainLoginWindow()
         {
             InitializeComponent();
@@ -32,13 +32,20 @@ namespace HurtowniaAplikacja
         }
         private void MainLoginWindow_OnLoginButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Login detected! " + LoginUsername);
+            if (_accountManager.TryLogin(LoginUsername, SecurePassword))
+            {
+                
+            }
+            else
+            {
+                
+            }
         }
         private void MainLoginWindow_OnRegisterButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Register detected!");
+            _accountManager.CreateAccount(LoginUsername, SecurePassword);
         }
-        private void changeTemplate(object sender, RoutedEventArgs e)
+        public void changeTemplate(object sender, RoutedEventArgs e)
         {
             if (CurrentTemplateName == "LoginTemplate")
             {
@@ -49,6 +56,11 @@ namespace HurtowniaAplikacja
                 CurrentTemplateName = "LoginTemplate";
             }
             MyContentControl.ContentTemplate = (DataTemplate)Resources[CurrentTemplateName];
+        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            { ((dynamic)this.DataContext).SecurePassword = ((PasswordBox)sender).SecurePassword; }
         }
         private void UsernameLogin_OnTextChanged(object sender, TextChangedEventArgs e)
         {

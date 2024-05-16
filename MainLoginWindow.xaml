@@ -12,6 +12,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
+        Icon="/HurtowniaAplikacja;component/Images/MarketMateLogo.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     
     <Window.Resources>
@@ -22,7 +23,7 @@
                 <TextBlock Text="Login:" Margin="3"/>
                 <TextBox Text="{Binding LoginUsername, Mode=TwoWay}" Grid.Row="0" Margin="5" Name="UsernameLogin" TextChanged="UsernameLogin_OnTextChanged"/>
                 <TextBlock Text="Password:" Margin="3"/>
-                <PasswordBox Grid.Row="1" Margin="3" />
+                <PasswordBox Grid.Row="1" Margin="3" PasswordChanged="PasswordBox_PasswordChanged"/>
 
                 <Button Content="Login" Grid.Row="2" Margin="3" Click="MainLoginWindow_OnLoginButtonClick">
                 </Button>
@@ -35,9 +36,9 @@
         <DataTemplate x:Key="RegistrationTemplate">
             <StackPanel>
                 <TextBlock Text="Login:" Grid.Row="3" Margin="3"/>
-                <TextBox Text="{Binding RegisterUsername,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="5"/>
-                <TextBlock Text="Password:" Grid.Row="3" Margin="3"/>
-                <PasswordBox  Grid.Row="1" Margin="3"/>
+                <TextBox Text="{Binding LoginUsername, Mode=TwoWay}" Grid.Row="0" Margin="5" Name="UsernameLogin" TextChanged="UsernameLogin_OnTextChanged"/>
+                <TextBlock Text="Password:" Grid.Row="3" Margin="3" />
+                <PasswordBox  Grid.Row="1" Margin="3" PasswordChanged="PasswordBox_PasswordChanged"/>
                 <Button Content="Register" Grid.Row="2" Margin="3" Click="MainLoginWindow_OnRegisterButtonClick"/>
                 <Button Width="300" BorderThickness="0" Content="Already have an account? Login here!" Foreground="Blue" Margin="5" 
                 Click="changeTemplate" Background="Transparent">
