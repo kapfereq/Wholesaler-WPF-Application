@@ -48,7 +48,7 @@ namespace HurtowniaAplikacja
 
 
 
-        public bool TryLogin(string username, SecureString password)
+        public UserAccount TryLogin(string username, SecureString password)
         {
             // Get the user accounts folder path (assuming it exists)
             string userAccountsFolder = Path.Combine(Environment.CurrentDirectory, "UserAccounts");
@@ -57,14 +57,14 @@ namespace HurtowniaAplikacja
             if (!File.Exists(userAccountsFile))
             {
                 MessageBox.Show("No user accounts file found!", "Login Error");
-                return false;
+                return null;
             }
 
             // Check for null password and display message box if needed
             if (password == null)
             {
                 MessageBox.Show("Please enter your password!", "Login Error");
-                return false; // Login failed due to missing password
+                return null; // Login failed due to missing password
             }
 
             // Convert SecureString to plain text (not recommended for production)
@@ -80,13 +80,14 @@ namespace HurtowniaAplikacja
             if (isLoginSuccessful)
             {
                 MessageBox.Show("Login successful!");
+                return new UserAccount { Username = username };
             }
             else
             {
                 MessageBox.Show("Invalid username or password!", "Login Error");
             }
 
-            return isLoginSuccessful;
+            return null;
         }
 
 

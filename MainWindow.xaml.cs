@@ -20,9 +20,16 @@ namespace HurtowniaAplikacja
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string LoggedInUsername { get; set; }
         public MainWindow()
         {
             InitializeComponent();
         }
+        public void SetLoggedInUsername(string username)
+        {
+            LoggedInUsername = username;
+            MessageBox.Show(LoggedInUsername);
+        }
+
     }
 }

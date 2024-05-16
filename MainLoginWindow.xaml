@@ -12,7 +12,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        Icon="/HurtowniaAplikacja;component/Images/MarketMateLogo.png"
+        Icon="/HurtowniaAplikacja;component/Images/MarketMateLogo.ico"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     
     <Window.Resources>

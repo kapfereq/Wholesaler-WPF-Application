@@ -11,6 +11,7 @@ namespace HurtowniaAplikacja
     /// </summary>
     public partial class MainLoginWindow : Window, INotifyPropertyChanged
     {
+        private MainWindow _mainWindow;
         private readonly AccountManager _accountManager = new AccountManager();
         private string CurrentTemplateName = "LoginTemplate";
 
@@ -32,12 +33,24 @@ namespace HurtowniaAplikacja
         }
         private void MainLoginWindow_OnLoginButtonClick(object sender, RoutedEventArgs e)
         {
-            if (_accountManager.TryLogin(LoginUsername, SecurePassword))
+            UserAccount loggedInUser = _accountManager.TryLogin(LoginUsername, SecurePassword);
+
+            if (loggedInUser != null)
             {
-                
+                // Successful login 
+                if (_mainWindow == null)
+                {
+                    _mainWindow = new MainWindow();
+                    _mainWindow.SetLoggedInUsername(loggedInUser.Username);
+                }
+
+                this.Hide();
+                _mainWindow.Show();
             }
+
             else
             {
+                // Login failed
                 
             }
         }
