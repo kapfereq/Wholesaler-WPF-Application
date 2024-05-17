@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using System.Security;
+using System.Windows.Input;
 
 namespace HurtowniaAplikacja
 {
@@ -30,6 +31,13 @@ namespace HurtowniaAplikacja
         {
             InitializeComponent();
             DataContext = this;
+        }
+        private void MainLoginWindow_MouseDown(object sender, RoutedEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
         private void MainLoginWindow_OnLoginButtonClick(object sender, RoutedEventArgs e)
         {

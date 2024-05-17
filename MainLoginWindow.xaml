@@ -13,13 +13,14 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Icon="/HurtowniaAplikacja;component/Images/MarketMateLogo.ico"
+        MouseDown="MainLoginWindow_MouseDown"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     
     <Window.Resources>
         <local:PercentageConverter x:Key="PercentageConverter" />
 
         <DataTemplate x:Key="LoginTemplate">
-            <StackPanel>
+            <StackPanel Width="300">
                 <TextBlock Text="Login:" Margin="3"/>
                 <TextBox Text="{Binding LoginUsername, Mode=TwoWay}" Grid.Row="0" Margin="5" Name="UsernameLogin" TextChanged="UsernameLogin_OnTextChanged"/>
                 <TextBlock Text="Password:" Margin="3"/>
@@ -30,11 +31,12 @@
                 <Button Width="300" BorderThickness="0" Content="Don't have an account? Register here!" Foreground="Blue" Margin="5" 
                 Click="changeTemplate" Background="Transparent">
                 </Button>
+                
             </StackPanel>
         </DataTemplate>
 
         <DataTemplate x:Key="RegistrationTemplate">
-            <StackPanel>
+            <StackPanel Width="300">
                 <TextBlock Text="Login:" Grid.Row="3" Margin="3"/>
                 <TextBox Text="{Binding LoginUsername, Mode=TwoWay}" Grid.Row="0" Margin="5" Name="UsernameLogin" TextChanged="UsernameLogin_OnTextChanged"/>
                 <TextBlock Text="Password:" Grid.Row="3" Margin="3" />
@@ -47,7 +49,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Border CornerRadius="50" BorderThickness="2">
+    <Border CornerRadius="50">
         <Border.Background>
             <ImageBrush ImageSource="/HurtowniaAplikacja;component/Images/WholesaleFoods.png"></ImageBrush>
         </Border.Background>
