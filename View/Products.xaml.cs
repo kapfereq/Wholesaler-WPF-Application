@@ -12,28 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-using System.Windows.Interop;
 
 namespace HurtowniaAplikacja
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Products.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Products : UserControl
     {
-        public MainWindow()
+        public Products()
         {
             InitializeComponent();
-        }
-        private void CloseApp_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        public string LoggedInUsername { get; set; }
-        public void SetLoggedInUsername(string username)
-        {
-            LoggedInUsername = username;
         }
     }
 }

@@ -50,6 +50,7 @@ namespace HurtowniaAplikacja
                 {
                     _mainWindow = new MainWindow();
                     _mainWindow.SetLoggedInUsername(loggedInUser.Username);
+                    
                 }
 
                 this.Hide();
@@ -65,6 +66,14 @@ namespace HurtowniaAplikacja
         private void MainLoginWindow_OnRegisterButtonClick(object sender, RoutedEventArgs e)
         {
             _accountManager.CreateAccount(LoginUsername, SecurePassword);
+        }
+        private void MainLoginWindow_btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void MainLoginWindow_btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
         public void changeTemplate(object sender, RoutedEventArgs e)
         {

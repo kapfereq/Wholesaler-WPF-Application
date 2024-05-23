@@ -6,22 +6,161 @@
         xmlns:local="clr-namespace:HurtowniaAplikacja"
         mc:Ignorable="d"
         Icon="/HurtowniaAplikacja;component/Images/MarketMateLogo.ico"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MarketMate" Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.DataContext>
+        <local:NavigationVM />
+    </Window.DataContext>
+
     <Grid>
-        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="1000"/>
+        </Grid.ColumnDefinitions>
+
+        <!--// Window Border //-->
+
+        <Border
+                CornerRadius="20" Grid.ColumnSpan="2">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,2" EndPoint="1,0" Opacity="1">
+                    <GradientStop Color="#ffffff" Offset="0"/>
+                    <GradientStop Color="#fac8a8" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <Grid Grid.ColumnSpan="2">
+
+            <!--// Base Grid //-->
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="1000" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="2*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock Text="Merging top 3 Cells" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
-            <TextBlock Text="Rowspan=2" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
-            <TextBlock Text="Rowspan=2 Colspan=2" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
+
+            <!--// Navigation Panel //-->
+
+            <Grid HorizontalAlignment="Left"
+                  Width="300">
+
+                <Border Background="#292728"
+                        CornerRadius="20,0,0,20" />
+
+                <StackPanel Height="700"
+                            Width="300">
+                    <!--// Home //-->
+                    <!--// Home //-->
+
+                    <Image Source="/HurtowniaAplikacja;component/Images/MarketMate.png"/>
+                    <!--// Home //-->
+
+                    <local:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}"
+                              IsChecked="True">
+
+                        <Grid>
+
+                            <Image Source="Images/img_home.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Home"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </local:Btn>
+
+                    <!--// Customer //-->
+
+                    <local:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding CustomersCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_customer.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Profile"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </local:Btn>
+
+                    <!--// Products //-->
+
+                    <local:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding ProductsCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_product.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Products"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </local:Btn>
+
+                    <!--// Orders //-->
+
+                    <local:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding OrdersCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_order.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Orders"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </local:Btn>
+
+
+                    <!--// Settings //-->
+
+                    <local:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding SettingsCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_setting.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Settings"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </local:Btn>
+
+                </StackPanel>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+
+                <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}" Height="700"  Foreground="Gray" />
+
+            </Grid>
+
         </Grid>
+
+        <Button x:Name="CloseApp"
+                Style="{StaticResource ExitApp}"
+                Click="CloseApp_Click" Grid.Column="1" />
+
     </Grid>
+
 </Window>

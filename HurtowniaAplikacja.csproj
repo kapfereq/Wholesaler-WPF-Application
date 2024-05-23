@@ -8,14 +8,55 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\RifficFree-Bold.ttf" />
+    <None Remove="Fonts\Rubik-Medium.ttf" />
+    <None Remove="Fonts\Rubik-Regular.ttf" />
+    <None Remove="Images\customer_page.png" />
     <None Remove="Images\defaultPic.png" />
+    <None Remove="Images\home_page.png" />
+    <None Remove="Images\img_customer.png" />
+    <None Remove="Images\img_home.png" />
+    <None Remove="Images\img_order.png" />
+    <None Remove="Images\img_product.png" />
+    <None Remove="Images\img_setting.png" />
+    <None Remove="Images\img_shipment.png" />
+    <None Remove="Images\img_transaction.png" />
     <None Remove="Images\MarketMate.png" />
     <None Remove="Images\MarketMateLogo.ico" />
     <None Remove="Images\MarketMateLogo.png" />
+    <None Remove="Images\order_page.png" />
+    <None Remove="Images\product_page.png" />
+    <None Remove="Images\setting_page.png" />
+    <None Remove="Images\shipment_page.png" />
+    <None Remove="Images\shutdown_def.png" />
+    <None Remove="Images\shutdown_mo.png" />
+    <None Remove="Images\transaction_page.png" />
     <None Remove="Images\WholesaleFoods.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\RifficFree-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Rubik-Medium.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Rubik-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\customer_page.png" />
+    <Resource Include="Images\home_page.png" />
+    <Resource Include="Images\img_customer.png" />
+    <Resource Include="Images\img_home.png" />
+    <Resource Include="Images\img_order.png" />
+    <Resource Include="Images\img_product.png" />
+    <Resource Include="Images\img_setting.png" />
+    <Resource Include="Images\img_shipment.png" />
+    <Resource Include="Images\img_transaction.png" />
     <Resource Include="Images\MarketMate.png" />
   </ItemGroup>
 
@@ -23,6 +64,13 @@
     <Resource Include="Images\defaultPic.png" />
     <Resource Include="Images\MarketMateLogo.ico" />
     <Resource Include="Images\MarketMateLogo.png" />
+    <Resource Include="Images\order_page.png" />
+    <Resource Include="Images\product_page.png" />
+    <Resource Include="Images\setting_page.png" />
+    <Resource Include="Images\shipment_page.png" />
+    <Resource Include="Images\shutdown_def.png" />
+    <Resource Include="Images\shutdown_mo.png" />
+    <Resource Include="Images\transaction_page.png" />
     <Resource Include="Images\WholesaleFoods.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
