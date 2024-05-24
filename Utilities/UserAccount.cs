@@ -176,6 +176,16 @@ namespace HurtowniaAplikacja
             }
 
             // Read all lines from the user accounts file
+            if (!Directory.Exists(userAccountsFolder))
+            {
+                Directory.CreateDirectory(userAccountsFolder);
+            }
+            if (!File.Exists(userAccountsFile))
+            {
+                // Create an empty file
+                File.Create(userAccountsFile).Dispose();
+                // Now the code can continue (or handle the empty file scenario)
+            }
             string[] lines = File.ReadAllLines(userAccountsFile);
 
             // Check if any line starts with the username and a colon (:)
