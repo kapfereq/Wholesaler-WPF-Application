@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HurtowniaAplikacja.StandardUserAccount" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\UserAccount.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HurtowniaAplikacja.AdminUserAccount" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAIAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\UserAccount.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HurtowniaAplikacja.FileHandler" BaseTypeListCollapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAABAQAAAAAAAAAAAACAAAAAAAAAQA=</HashCode>
+      <FileName>Utilities\UserAccount.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HurtowniaAplikacja.AccountManager" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAABABAAAAQBAAABAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\UserAccount.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="HurtowniaAplikacja.IUserAccount">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\UserAccount.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HurtowniaAplikacja.IAccountManager">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\UserAccount.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HurtowniaAplikacja.IFileHandler">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAABAQAAAAAAAAAAAACAAAAAAAAAQA=</HashCode>
+      <FileName>Utilities\UserAccount.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices; // For Marshal class
 using System.IO; // For File class
 using System.Windows;
+using Hurtownia.BusinessLogic;
 
 namespace HurtowniaAplikacja
 {
