@@ -7,9 +7,7 @@ using System.Windows.Input;
 
 namespace HurtowniaAplikacja
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
+    
     public partial class MainLoginWindow : Window, INotifyPropertyChanged
     {
         private MainWindow _mainWindow;
@@ -41,7 +39,8 @@ namespace HurtowniaAplikacja
         }
         private void MainLoginWindow_OnLoginButtonClick(object sender, RoutedEventArgs e)
         {
-            UserAccount loggedInUser = _accountManager.TryLogin(LoginUsername, SecurePassword);
+            // Try to login and cast the result to UserAccount
+            IUserAccount loggedInUser = _accountManager.TryLogin(LoginUsername, SecurePassword) as IUserAccount;
 
             if (loggedInUser != null)
             {
@@ -50,17 +49,15 @@ namespace HurtowniaAplikacja
                 {
                     _mainWindow = new MainWindow();
                     _mainWindow.SetLoggedInUsername(loggedInUser.Username);
-                    
                 }
 
                 this.Hide();
                 _mainWindow.Show();
             }
-
             else
             {
                 // Login failed
-                
+                MessageBox.Show("Login failed. Please check your username and password.");
             }
         }
         private void MainLoginWindow_OnRegisterButtonClick(object sender, RoutedEventArgs e)
@@ -101,6 +98,5 @@ namespace HurtowniaAplikacja
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

@@ -10,77 +10,150 @@ using System.Windows;
 
 namespace HurtowniaAplikacja
 {
-    public class UserAccount
+    public interface IUserAccount
     {
-        public string Username { get; set; }
-        public string Password { get; set; } // **Security Risk**
+        string Username { get; set; }
+        string Password { get; set; }
     }
 
-    public class AccountManager
+    public interface IAccountManager
+    {
+        void CreateAccount(string username, SecureString password);
+        IUserAccount TryLogin(string username, SecureString password);
+    }
+
+    public interface IFileHandler
+    {
+        bool FileExists(string path);
+        void CreateDirectory(string path);
+        void CreateFile(string path);
+        string[] ReadAllLines(string path);
+        void AppendTextToFile(string path, string content);
+    }
+
+    public class StandardUserAccount : IUserAccount
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class AdminUserAccount : IUserAccount
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+
+        public void AccessAdminPanel()
+        {
+            MessageBox.Show("Accessing Admin Panel");
+        }
+    }
+
+    public class FileHandler : IFileHandler
+    {
+        public bool FileExists(string path) => File.Exists(path);
+
+        public void CreateDirectory(string path)
+        {
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
+
+        public void CreateFile(string path)
+        {
+            if (!FileExists(path))
+                File.Create(path).Dispose();
+        }
+
+        public string[] ReadAllLines(string path) => File.ReadAllLines(path);
+
+        public void AppendTextToFile(string path, string content)
+        {
+            using (StreamWriter writer = File.AppendText(path))
+            {
+                writer.WriteLine(content);
+            }
+        }
+    }
+
+    public class AccountManager : IAccountManager
     {
         private readonly string _userAccountsFile = "HurtowniaAplikacja;component/UserAccounts/UserAccounts.txt";
+        private readonly IFileHandler _fileHandler;
+
+        public AccountManager()
+        {
+            _fileHandler = new FileHandler(); // Directly instantiate FileHandler
+        }
+
         public void CreateAccount(string username, SecureString password)
         {
-            // Validate username (optional, but recommended)
             if (string.IsNullOrEmpty(username))
             {
                 MessageBox.Show("Please enter a username.");
                 return;
             }
 
-            // Validate password (now required)
-            if (password == null || password.Length == 0) // Check for null and empty password
+            if (password == null || password.Length == 0)
             {
                 MessageBox.Show("Please enter a password. Password cannot be empty.");
                 return;
             }
 
-            // Convert SecureString to plain text (NOT RECOMMENDED, for demonstration only)
             string passwordText = Marshal.PtrToStringBSTR(Marshal.SecureStringToBSTR(password));
-            Marshal.FreeBSTR(Marshal.SecureStringToBSTR(password)); // Clear SecureString
+            Marshal.FreeBSTR(Marshal.SecureStringToBSTR(password));
 
-            // Create the UserAccount object with plain text password
-            var userAccount = new UserAccount { Username = username, Password = passwordText };
+            IUserAccount userAccount;
 
-            // Save the user account (assuming uniqueness is checked here and SaveUserAccount handles potential file access exceptions)
+            // Check if the username starts with "ADMIN_"
+            if (username.StartsWith("ADMIN_"))
+            {
+                userAccount = new AdminUserAccount { Username = username, Password = passwordText };
+            }
+            else
+            {
+                userAccount = new StandardUserAccount { Username = username, Password = passwordText };
+            }
+
             SaveUserAccount(userAccount);
         }
 
-
-
-        public UserAccount TryLogin(string username, SecureString password)
+        public IUserAccount TryLogin(string username, SecureString password)
         {
-            // Get the user accounts folder path (assuming it exists)
             string userAccountsFolder = Path.Combine(Environment.CurrentDirectory, "UserAccounts");
             string userAccountsFile = Path.Combine(userAccountsFolder, "UserAccounts.txt");
 
-            if (!File.Exists(userAccountsFile))
+            if (!_fileHandler.FileExists(userAccountsFile))
             {
                 MessageBox.Show("No user accounts file found!", "Login Error");
                 return null;
             }
 
-            // Check for null password and display message box if needed
             if (password == null)
             {
                 MessageBox.Show("Please enter your password!", "Login Error");
-                return null; // Login failed due to missing password
+                return null;
             }
 
-            // Convert SecureString to plain text (not recommended for production)
             string enteredPasswordText = Marshal.PtrToStringBSTR(Marshal.SecureStringToBSTR(password));
-            Marshal.FreeBSTR(Marshal.SecureStringToBSTR(password)); // Clear SecureString
+            Marshal.FreeBSTR(Marshal.SecureStringToBSTR(password));
 
-            // Read all lines from the user accounts file
-            string[] lines = File.ReadAllLines(userAccountsFile);
+            string[] lines = _fileHandler.ReadAllLines(userAccountsFile);
 
-            // Check if any line matches the username and password exactly
             bool isLoginSuccessful = lines.Any(line => line == $"{username}:{enteredPasswordText}");
 
             if (isLoginSuccessful)
             {
-                MessageBox.Show("Login successful!");
-                return new UserAccount { Username = username };
+                // Check if the username starts with "ADMIN_"
+                if (username.StartsWith("ADMIN_"))
+                {
+                    MessageBox.Show("Admin account logged in successfully");
+                    return new AdminUserAccount { Username = username, Password = enteredPasswordText };
+                }
+                else
+                {
+                    MessageBox.Show("Login successful!");
+                    return new StandardUserAccount { Username = username, Password = enteredPasswordText };
+                }
             }
             else
             {
@@ -90,105 +163,77 @@ namespace HurtowniaAplikacja
             return null;
         }
 
-
-
-
-        private List<UserAccount> LoadUserAccounts()
+        private List<IUserAccount> LoadUserAccounts()
         {
-            List<UserAccount> accounts = new List<UserAccount>();
+            List<IUserAccount> accounts = new List<IUserAccount>();
 
-            if (!File.Exists(_userAccountsFile))
+            if (!_fileHandler.FileExists(_userAccountsFile))
             {
-                return accounts; // No user accounts file
+                return accounts;
             }
 
-            string[] lines = File.ReadAllLines(_userAccountsFile);
+            string[] lines = _fileHandler.ReadAllLines(_userAccountsFile);
             foreach (string line in lines)
             {
                 string[] parts = line.Split(':');
                 if (parts.Length != 2)
                 {
-                    continue; // Invalid format in user accounts file
+                    continue;
                 }
 
-                accounts.Add(new UserAccount { Username = parts[0], Password = parts[1] });
+                // Check if the username starts with "ADMIN_"
+                if (parts[0].StartsWith("ADMIN_"))
+                {
+                    accounts.Add(new AdminUserAccount { Username = parts[0], Password = parts[1] });
+                }
+                else
+                {
+                    accounts.Add(new StandardUserAccount { Username = parts[0], Password = parts[1] });
+                }
             }
 
             return accounts;
         }
 
-
-        private void SaveUserAccount(UserAccount account)
+        private void SaveUserAccount(IUserAccount account)
         {
-            
             string userAccountsFolder = Path.Combine(Environment.CurrentDirectory, "UserAccounts");
-
             string userAccountsFile = Path.Combine(userAccountsFolder, "UserAccounts.txt");
-
-            Console.WriteLine($"User Accounts File Path (Debug): {userAccountsFile}");
 
             if (!IsUsernameUnique(account.Username))
             {
                 MessageBox.Show("Username already exists. Please choose a different username.");
-                return; 
+                return;
             }
 
-            if (!Directory.Exists(userAccountsFolder))
+            _fileHandler.CreateDirectory(userAccountsFolder);
+            _fileHandler.AppendTextToFile(userAccountsFile, $"{account.Username}:{account.Password}");
+
+            MessageBox.Show("User account saved successfully!");
+            var window = Application.Current.MainWindow as MainLoginWindow;
+            if (window != null)
             {
-                Directory.CreateDirectory(userAccountsFolder);
-            }
-
-            try
-            {
-                using (StreamWriter writer = File.AppendText(userAccountsFile))
-                {
-                    string line = $"{account.Username}:{account.Password}";
-
-                    writer.WriteLine(line);
-                }
-
-                // Success message 
-                MessageBox.Show("User account saved successfully!");
-                var window = Application.Current.MainWindow as MainLoginWindow; // Get reference
-                if (window != null)
-                {
-                    window.MyContentControl.ContentTemplate = window.Resources["LoginTemplate"] as DataTemplate;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show($"Error saving user account: {ex.Message}");
+                window.MyContentControl.ContentTemplate = window.Resources["LoginTemplate"] as DataTemplate;
             }
         }
 
         private bool IsUsernameUnique(string username)
         {
-            // Get the user accounts folder path (assuming it exists)
             string userAccountsFolder = Path.Combine(Environment.CurrentDirectory, "UserAccounts");
             string userAccountsFile = Path.Combine(userAccountsFolder, "UserAccounts.txt");
 
-            //Console.WriteLine($"Checking Username (Debug): {username}"); // Debug Print - Username Verification
-
-            if (string.IsNullOrEmpty(username)) 
+            if (string.IsNullOrEmpty(username))
             {
                 return false;
             }
 
-            // Read all lines from the user accounts file
-            if (!Directory.Exists(userAccountsFolder))
+            _fileHandler.CreateDirectory(userAccountsFolder);
+            if (!_fileHandler.FileExists(userAccountsFile))
             {
-                Directory.CreateDirectory(userAccountsFolder);
+                _fileHandler.CreateFile(userAccountsFile);
             }
-            if (!File.Exists(userAccountsFile))
-            {
-                // Create an empty file
-                File.Create(userAccountsFile).Dispose();
-                // Now the code can continue (or handle the empty file scenario)
-            }
-            string[] lines = File.ReadAllLines(userAccountsFile);
 
-            // Check if any line starts with the username and a colon (:)
+            string[] lines = _fileHandler.ReadAllLines(userAccountsFile);
             return !lines.Any(line => line.StartsWith(username + ":"));
         }
     }
