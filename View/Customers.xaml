@@ -37,6 +37,28 @@
                    VerticalAlignment="Top"
                    FontFamily="/Fonts/#Rubik Medium"
                    Margin="339,178,0,0" />
+        <TextBlock Text="Account Creation Date: 01.09.2024"
+            Foreground="#DBDBDB"
+            FontSize="12"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="/Fonts/#Rubik Medium"
+            Margin="220,250,0,0" />
+        <TextBlock Text="Last order date: 01.09.2024"
+            Foreground="#DBDBDB"
+            FontSize="12"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="/Fonts/#Rubik Medium"
+            Margin="220,319,0,0" />
+        <TextBlock Text="Welcome to your account settings! Here, you can manage your personal details, preferences, and account security to ensure a seamless experience with our wholesaler platform. Your account is your gateway to managing orders, keeping track of your business transactions, and customizing how you interact with our services."
+            Foreground="#DBDBDB"
+            FontSize="16"
+            TextWrapping="Wrap"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="/Fonts/#Rubik Medium"
+            Margin="220,391,0,0" Width="544" Height="139" />
 
 
     </Grid>
