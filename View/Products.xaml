@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vm="clr-namespace:HurtowniaAplikacja"
+             xmlns:vm="clr-namespace:Hurtownia.BusinessLogic"
              mc:Ignorable="d"
              d:DesignHeight="700"
              d:DesignWidth="1000"
@@ -12,23 +12,100 @@
     <UserControl.DataContext>
         <vm:ProductVM />
     </UserControl.DataContext>
-    
+
     <Grid Margin="15">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/product_page.png" Stretch="Fill" />
+        </Grid.Background>
+        <!-- Define Grid Rows and Columns for Proper Positioning -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Top Row for Products 1-4 -->
+            <RowDefinition Height="Auto"/>
+            <!-- Bottom Row for Products 5-8 -->
+            <RowDefinition Height="*"/>
+            <!-- Remaining space -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- Product 1 and 5 -->
+            <ColumnDefinition Width="*"/>
+            <!-- Product 2 and 6 -->
+            <ColumnDefinition Width="*"/>
+            <!-- Product 3 and 7 -->
+            <ColumnDefinition Width="*"/>
+            <!-- Product 4 and 8 -->
+        </Grid.ColumnDefinitions>
 
-        <Border CornerRadius="0,20,20,0">
-            <Border.Background>
-                <ImageBrush ImageSource="/Images/product_page.png"
-                            Stretch="Uniform" />
-            </Border.Background>
-        </Border>
+        <!-- Top Row Products (1-4) -->
+        <!-- Product 1 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="10"/>
 
-        <TextBlock Text="{Binding ProductAvailability}"
-                   Foreground="#F25E68"
-                   FontSize="12"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   FontFamily="/Fonts/#Rubik Medium"
-                   Margin="261,300,0,0" />
+        <!-- Product 2 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10"/>
 
+        <!-- Product 3 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="10"/>
+
+        <!-- Product 4 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="10"/>
+
+        <!-- Bottom Row Products (5-8) -->
+        <!-- Product 5 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="10"/>
+
+        <!-- Product 6 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10"/>
+
+        <!-- Product 7 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="10"/>
+
+        <!-- Product 8 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="10"/>
+
+        <!-- Checkout Button - Invisible but Clickable -->
+        <Button Content="Checkout"
+                Command="{Binding CheckoutCommand}"
+                Width="216"
+                Height="65"
+                Grid.Column="2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Opacity="0" Grid.ColumnSpan="2" Margin="226,25,0,0" Grid.RowSpan="3"/>
+        <TextBox Text="{Binding Products[4].Quantity, Mode=TwoWay}" RenderTransformOrigin="0.8,3.208" Margin="121,575,92,27" Grid.Row="2"/>
+        <TextBox Text="{Binding Products[0].Quantity, Mode=TwoWay}" RenderTransformOrigin="2.72,18.537" Margin="132,324,82,281" Grid.Row="2"/>
+        <Button Content="Add" Command="{Binding Products[4].AddCommand}" Opacity ="0" Margin="198,574,16,29" Grid.Row="2"/>
+        <Button Content="Rem" Command="{Binding Products[4].RemoveCommand}" Opacity ="0" Margin="166,575,50,29" Grid.Row="2" RenderTransformOrigin="1.823,5.382"/>
+        <Button Content="Add" Command="{Binding Products[0].AddCommand}" Opacity ="0" Margin="200,323,16,282" RenderTransformOrigin="3.073,15.832" Grid.Row="2"/>
+        <Button Content="Rem" Command="{Binding Products[0].RemoveCommand}" Opacity ="0" RenderTransformOrigin="4.325,18.788" Margin="171,323,44,282" Grid.Row="2"/>
+        <TextBox Text="{Binding Products[1].Quantity, Mode=TwoWay}" RenderTransformOrigin="1.25,0.985" Grid.Column="1" Margin="102,576,115,28" Grid.Row="2"/>
+        <TextBox Text="{Binding Products[5].Quantity, Mode=TwoWay}" RenderTransformOrigin="1.299,0.72" Grid.Column="1" Margin="114,324,103,281" Grid.Row="2"/>
+        <Button Content="Add" Command="{Binding Products[5].AddCommand}" Opacity ="0" Grid.Column="1" Margin="178,323,40,282" Grid.Row="2" RenderTransformOrigin="2.085,11.11"/>
+        <Button Content="Rem" Command="{Binding Products[5].RemoveCommand}" Opacity ="0" Margin="152,323,65,282" RenderTransformOrigin="3.814,10.273" Grid.Column="1" Grid.Row="2"/>
+        <Button Content="Add" Command="{Binding Products[1].AddCommand}" Opacity ="0" Margin="176,575,40,30" RenderTransformOrigin="0.763,5.127" Grid.Column="1" Grid.Row="2"/>
+        <Button Content="Rem" Command="{Binding Products[1].RemoveCommand}" Opacity ="0" Margin="144,575,71,30" RenderTransformOrigin="2.327,7.599" Grid.Column="1" Grid.Row="2"/>
+        <TextBox Text="{Binding Products[6].Quantity, Mode=TwoWay}" Grid.Column="2" Margin="83,576,132,29" Grid.Row="2" RenderTransformOrigin="0.708,0.44"/>
+        <Button Content="Add" Command="{Binding Products[6].AddCommand}" Opacity ="0" Margin="153,574,60,31" Grid.Column="2" Grid.Row="2"/>
+        <Button Content="Rem" Command="{Binding Products[6].RemoveCommand}" Opacity ="0" Margin="121,576,92,31" Grid.Column="2" Grid.Row="2"/>
+        <TextBox Text="{Binding Products[2].Quantity, Mode=TwoWay}" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Margin="84,324,132,281" Grid.Row="2">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.313"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.151"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Button Content="Add" Command="{Binding Products[2].AddCommand}" Opacity ="0" Margin="155,324,60,281" Grid.Column="2" Grid.Row="2" RenderTransformOrigin="2.436,5.144"/>
+        <Button Content="Rem" Command="{Binding Products[2].RemoveCommand}" Opacity ="0" Margin="121,324,90,280" Grid.Column="2" Grid.Row="2" RenderTransformOrigin="1.841,7.025"/>
+        <TextBox Text="{Binding Products[7].Quantity, Mode=TwoWay}" RenderTransformOrigin="1.1,1.619" Grid.Column="3" Margin="68,576,146,30" Grid.Row="2"/>
+        <Button Content="Add" Command="{Binding Products[7].AddCommand}" Opacity ="0" Margin="140,575,76,32" RenderTransformOrigin="1.294,5.184" Grid.Column="3" Grid.Row="2"/>
+        <Button Content="Rem" Command="{Binding Products[7].RemoveCommand}" Opacity ="0" RenderTransformOrigin="0.7,4.11" Grid.Column="3" Margin="106,574,106,32" Grid.Row="2"/>
+        <TextBox Text="{Binding Products[3].Quantity, Mode=TwoWay}" RenderTransformOrigin="0.05,12.124" Grid.Column="3" Margin="68,327,144,280" Grid.Row="2"/>
+        <Button Content="Add" Command="{Binding Products[3].AddCommand}" Opacity ="0" Margin="138,324,76,283" RenderTransformOrigin="0.983,1.804" Grid.Column="3" Grid.Row="2"/>
+        <Button
+        RenderTransformOrigin="1.016,0.952" Margin="106,325,104,285" Opacity ="0" Content="Rem" Command="{Binding Products[3].RemoveCommand}" Grid.Column="3" Grid.Row="2"/>
+        <Button Content="Rem" Command="{Binding Products[3].RemoveCommand}" Opacity ="0" RenderTransformOrigin="1.016,0.952" Grid.Column="3" Margin="104,325,107,285" Grid.Row="2"/>
     </Grid>
 </UserControl>
